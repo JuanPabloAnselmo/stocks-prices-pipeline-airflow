@@ -18,7 +18,7 @@ class TestCodeStyle(unittest.TestCase):
         """
         # Run the flake8 subprocess with specific configurations
         result = subprocess.run(
-            ['flake8', '--max-line-length=88', '--exclude=env,.git,test,utils'],
+            ['flake8', '--max-line-length=88', '--exclude=env,.git,test,utils,venv'],
             capture_output=True,
             text=True
         )
