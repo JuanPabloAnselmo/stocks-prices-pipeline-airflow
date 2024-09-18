@@ -1,0 +1,11 @@
+# Dockerfile.base
+FROM python:3.9-slim
+
+# Establece el directorio de trabajo en el contenedor
+WORKDIR /app
+
+# Copia todos los archivos y carpetas del directorio actual al contenedor
+COPY . /app
+
+# Instalación de dependencias comunes
+RUN pip install --upgrade pip && pip install -r requirements.txt
