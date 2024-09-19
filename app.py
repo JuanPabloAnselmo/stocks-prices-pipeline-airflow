@@ -18,7 +18,6 @@ def plot_stock_data(engine: Engine) -> None:
         # Load the data from the database
         query = """
             SELECT
-                id_transaction,
                 date,
                 symbol,
                 open_price,
@@ -34,7 +33,6 @@ def plot_stock_data(engine: Engine) -> None:
         if df.empty:
             st.write("No data available, returning 0 for all columns.")
             df = pd.DataFrame({
-                'id_transaction': [0],
                 'date': [pd.Timestamp('1970-01-01')],
                 'symbol': ['N/A'],
                 'open_price': [0.0],
