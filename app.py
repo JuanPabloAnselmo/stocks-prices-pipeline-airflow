@@ -77,8 +77,7 @@ def plot_stock_data(engine: Engine) -> None:
         ax.set_title(f'Evolution of {selected_variable} for {selected_symbol}')
         ax.grid(True)
 
-
-        plt.xticks(rotation=45, ha='right')  
+        plt.xticks(rotation=45, ha='right')
 
         st.pyplot(fig)
 
