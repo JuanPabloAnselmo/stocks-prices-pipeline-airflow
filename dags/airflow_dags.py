@@ -27,7 +27,7 @@ with DAG(
     dag_id="stock_price_dags",
     default_args=default_args,
     description="DAG to process stock price data and load it into Redshift",
-    schedule_interval="@daily",
+    schedule_interval="0 0 * * 2-6",
     start_date=days_ago(1),
     catchup=False,
 ) as dag:
