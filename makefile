@@ -20,6 +20,15 @@ create_dirs_and_env:
 		echo ".env file already exists. Skipping creation."; \
 	fi
 
+# Build Airflow image if it doesn't exist
+build_airflow_image:
+	@if [ -z "$$(docker images -q $(IMAGE_AIRFLOW))" ]; then \
+		echo "Building the Airflow image..."; \
+		docker build -t $(IMAGE_AIRFLOW) -f Dockerfile .; \
+	else \
+		echo "Airflow image already exists. Skipping build."; \
+	fi
+
 # Build Streamlit image if it doesn't exist
 build_streamlit_image:
 	@if [ -z "$$(docker images -q $(IMAGE_STREAMLIT))" ]; then \
@@ -34,4 +43,4 @@ docker_up:
 	docker compose up
 
 # Main command that runs everything
-all: create_dirs_and_env build_streamlit_image docker_up
+all: build_airflow_image create_dirs_and_env build_streamlit_image docker_up
