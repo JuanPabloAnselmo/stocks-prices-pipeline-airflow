@@ -76,8 +76,9 @@ def plot_stock_data(engine: Engine) -> None:
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
     plt.xticks(rotation=45, ha='right')
 
-    # Set x-axis limits to cover the entire date range
-    ax.set_xlim(filtered_df['date'].min(), filtered_df['date'].max())
+    # Set x-axis limits to cover the entire date range with one day before and after
+    ax.set_xlim(filtered_df['date'].min() - pd.Timedelta(days=1), 
+                 filtered_df['date'].max() + pd.Timedelta(days=1))
 
     # Adjust layout for better fit
     fig.tight_layout()
