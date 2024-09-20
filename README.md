@@ -71,11 +71,19 @@ cd stocks-price-pipeline
 Define las variables necesarias en el archivo .env o directamente en config/config.py para la conexión a Redshift y las APIs de stock:
 
 ```bash
-AIRFLOW_UID=50000 # Colacar siempre mismo valor
+# UID AIRFLOW
+AIRFLOW_UID=50000 # Colocar siempre mismo valor
+
+# APIs keys
 API_KEY_ALPHA=your_alpha_vantage_api_key
 API_KEY_FINHUB=your_finnhub_api_key
+
+# DB Redshift 
 USER_REDSHIFT=your_username
 PASSWORD_REDSHIFT=your_password
+HOST_REDSHIFT=your_host
+PORT_REDSHIFT=your_port
+DBNAME_REDSHIFT=your_dbname
 ```
 
 #### 3. Correr Makefile

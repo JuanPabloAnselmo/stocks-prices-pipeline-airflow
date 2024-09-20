@@ -31,9 +31,9 @@ STOCKS_SYMBOLS_LIST: List[str] = ['AAPL', 'MSFT', 'AMZN', 'GOOGL', 'TSLA']
 # STOCKS_SYMBOLS_LIST += ['META', 'NVDA', 'MELI', 'JNJ', 'V']
 
 # Redshift database connection details loaded from environment variables
-DBNAME_REDSHIFT: str = "pda"
+DBNAME_REDSHIFT: Optional[str] = os.getenv('DBNAME_REDSHIFT')
 USER_REDSHIFT: Optional[str] = os.getenv('USER_REDSHIFT')
 PASSWORD_REDSHIFT: Optional[str] = os.getenv('PASSWORD_REDSHIFT')
-HOST_REDSHIFT: str = "redshift-pda-cluster.cnuimntownzt.us-east-2.redshift.amazonaws.com"
-PORT_REDSHIFT: str = "5439"
+HOST_REDSHIFT: Optional[str] = os.getenv('HOST_REDSHIFT')
+PORT_REDSHIFT: Optional[str] = os.getenv('PORT_REDSHIFT')
 
