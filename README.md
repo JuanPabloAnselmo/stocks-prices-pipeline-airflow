@@ -14,6 +14,7 @@ Este repositorio contiene un pipeline ETL (Extract, Transform, Load) diseñado p
 
 ## 📁 Estructura del Proyecto
 
+```plaintext
 .
 ├── bronze                  # Módulo para extraer y almacenar los datos en bruto
 ├── silver                  # Módulo para limpiar y transformar los datos
@@ -31,20 +32,23 @@ Este repositorio contiene un pipeline ETL (Extract, Transform, Load) diseñado p
 ├── `app.py`                # Script para graficar
 ├── makefile                # Archivo Makefile para automatizar implementación
 └── `README.md`             # Documentación del proyecto
+```
 
 ## Descripción de la Base de Datos
 La base de datos está diseñada con el siguiente formato:
 
 #### Tabla de Hechos (fact):
 
-**daily_stock_prices_table**: Almacena los precios diarios de las acciones, incluyendo los precios de apertura, cierre, máximos, mínimos y volumen de transacciones.
-Tablas de Dimensiones (dimension):
+- **daily_stock_prices_table**: Almacena los precios diarios de las acciones, incluyendo los precios de apertura, cierre, máximos, mínimos y volumen de transacciones.
 
-**stock_table**: Contiene información estática sobre las acciones, como el símbolo, nombre de la empresa, industria, y otros detalles relevantes.
-date_table: Almacena las fechas y metadatos asociados, permitiendo análisis temporales.
-Tabla de Atributos Calculados:
+#### Tablas de Dimensiones (dimension):
 
-**atributes_stock_prices_table**: Almacena atributos calculados derivados de la tabla de hechos daily_stock_prices_table, como cambios porcentuales de precios y volatilidad. Aunque esta tabla contiene datos calculados, puede considerarse parte de una capa analítica debido a su dependencia de la tabla de hechos principal
+- **stock_table**: Contiene información estática sobre las acciones, como el símbolo, nombre de la empresa, industria, y otros detalles relevantes.
+- **date_table**: Almacena las fechas y metadatos asociados, permitiendo análisis temporales.
+  
+#### Tabla de Atributos Calculados:
+
+- **atributes_stock_prices_table**: Almacena atributos calculados derivados de la tabla de hechos daily_stock_prices_table, como cambios porcentuales de precios y volatilidad. Aunque esta tabla contiene datos calculados, puede considerarse parte de una capa analítica debido a su dependencia de la tabla de hechos principal
 
 ## 🛠️ Instalación y Configuración
 
