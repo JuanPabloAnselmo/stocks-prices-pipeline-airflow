@@ -80,9 +80,9 @@ PASSWORD_REDSHIFT=your_password
 
 #### 3. Correr Makefile
 
-Este Makefile automatiza la creación de directorios necesarios y la configuración del entorno para utilizar Airflow y Streamlit. Incluye comandos para construir las imágenes de Docker si no existen y para levantar los servicios con Docker Compose. 
+El Makefile automatiza la creación de directorios necesarios y la configuración del entorno para utilizar Airflow y Streamlit. Incluye comandos para construir las imágenes de Docker si no existen y para levantar los servicios con Docker Compose. 
 
-Simplemente ejecuta make para realizar todas estas tareas de manera secuencial:
+Simplemente ejecuta el siguiente comando para realizar todas estas tareas de manera secuencial:
 
 ```bash
 make all
