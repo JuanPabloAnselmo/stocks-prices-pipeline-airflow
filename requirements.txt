@@ -1,13 +1,19 @@
 flake8==7.1.1
 matplotlib==3.9.2
 pandas==2.1.4
+requests==2.31.0
+requests-toolbelt==1.0.0
+sortedcontainers==2.4.0
 SQLAlchemy==1.4.49
+SQLAlchemy-JSONField==1.0.1.post0
 sqlalchemy-redshift==0.8.14
+SQLAlchemy-Utils==0.41.1
+sqlparse==0.4.4
 streamlit==1.38.0
+toml==0.10.2
+urllib3==1.26.16
 numpy==1.26.4
 psycopg2-binary==2.9.9
 python-dotenv==1.0.1
-urllib3==1.26.16
-requests==2.31.0
 
 
