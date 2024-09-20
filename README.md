@@ -63,7 +63,7 @@ La base de datos está diseñada con el siguiente formato:
 #### 1. Clonar repositorio
 
 ```bash
-git clone https://github.com/JuanPabloAnselmo/stocks-price-pipeline.git
+git clone https://github.com/JuanPabloAnselmo/stocks-prices-pipeline-airflow.git
 cd stocks-price-pipeline  
 ```
 
