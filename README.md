@@ -105,6 +105,7 @@ Visita http://localhost:8080 en tu navegador. El usuario y la contraseña predet
 Visita http://localhost:8501 en tu navegador. Se vera el grafico con los datos correspondientes a la tabla daily_stock_prices_table
 
 > **Nota**: Los stocks por default se realizaron al azar. Si se quiere la información de algun stock en particular, hay que entrar a utils/config.py y cambiar los valores de la variables STOCKS_SYMBOLS_LIST.
+> **Nota 2**: El pipeline esta configurado para correr de Martes a Sabado tomando información del dia anterior. Esto es porque los valores cambian de Lunes a Viernes.
 
 ## 📊 Estructura del Pipeline
 
