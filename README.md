@@ -64,7 +64,7 @@ La base de datos está diseñada con el siguiente formato:
 
 ```bash
 git clone https://github.com/JuanPabloAnselmo/stocks-prices-pipeline-airflow.git
-cd stocks-price-pipeline  
+cd stocks-prices-pipeline-airflow  
 ```
 
 #### 2. Configurar variables de entorno
