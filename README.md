@@ -37,6 +37,8 @@ Este repositorio contiene un pipeline ETL (Extract, Transform, Load) diseñado p
 ## Descripción de la Base de Datos
 La base de datos está diseñada con el siguiente formato:
 
+![alt text](image.png)
+
 #### Tabla de Hechos (fact):
 
 - **daily_stock_prices_table**: Almacena los precios diarios de las acciones, incluyendo los precios de apertura, cierre, máximos, mínimos y volumen de transacciones.
