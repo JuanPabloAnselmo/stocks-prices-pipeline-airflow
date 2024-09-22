@@ -68,7 +68,7 @@ cd stocks-prices-pipeline-airflow
 ```
 
 #### 2. Configurar variables de entorno
-Define las variables necesarias en el archivo .env o directamente en config/config.py para la conexión a Redshift y las APIs de stock:
+Define las variables necesarias en un archivo `.env`:
 
 ```bash
 # UID AIRFLOW
@@ -134,7 +134,7 @@ Limpia y transforma los datos, cargándolos en tablas Redshift.
 
 ### Gold Layer:
 
-Calcula atributos financieros clave y genera tablas finales para análisis avanzados.
+Calcula atributos financieros clave y genera tabla final de atributos para análisis avanzados.
 **DAG**: run_gold
 
 **Scripts:**
