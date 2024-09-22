@@ -37,7 +37,7 @@ Este repositorio contiene un pipeline ETL (Extract, Transform, Load) diseñado p
 ## Descripción de la Base de Datos
 La base de datos está diseñada con el siguiente formato:
 
-![alt text](image.png)
+![alt text](Esquema-DB.png)
 
 #### Tabla de Hechos (fact):
 
