@@ -4,7 +4,7 @@ Este repositorio contiene un pipeline ETL (Extract, Transform, Load) diseñado p
 
 ## 🚀 Características
 
-- **Integración con APIs**: Recupera datos de precios de acciones desde fuentes como Alpha Vantage y Finnhub.
+- **Integración con APIs**: Recupera datos de precios de acciones desde fuentes como Alpha Vantage y Finnhub del día anterior.
 - **Pipeline ETL**: Organizado en tres fases (bronze, silver y gold) para obtener, procesar y enriquecer datos financieros.
 - **Creación automática de tablas**: Genera tablas en Amazon Redshift para almacenar los datos de stock.
 - **Parquet Storage**: Exporta los datos procesados a archivos Parquet para optimizar el almacenamiento y la lectura.
@@ -105,6 +105,7 @@ Visita http://localhost:8080 en tu navegador. El usuario y la contraseña predet
 Visita http://localhost:8501 en tu navegador. Se vera el grafico con los datos correspondientes a la tabla daily_stock_prices_table
 
 > **Nota**: Los stocks por default se realizaron al azar. Si se quiere la información de algun stock en particular, hay que entrar a utils/config.py y cambiar los valores de la variables STOCKS_SYMBOLS_LIST.
+
 > **Nota 2**: El pipeline esta configurado para correr de Martes a Sabado tomando información del dia anterior. Esto es porque los valores cambian de Lunes a Viernes.
 
 ## 📊 Estructura del Pipeline
