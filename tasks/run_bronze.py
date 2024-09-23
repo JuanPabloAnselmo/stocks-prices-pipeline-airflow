@@ -1,10 +1,10 @@
 from bronze.parquet_create import parquet_create
-from utils.config import API_KEY_ALPHA, API_KEY_FINHUB, DATE_STR, STOCKS_SYMBOLS_LIST
+from utils.config import API_KEY_ALPHA, API_KEY_FINHUB,  STOCKS_SYMBOLS_LIST
 from airflow.exceptions import AirflowException
 from typing import Any
 
 
-def run_bronze(**kwargs: Any) -> None:
+def run_bronze(**context: Any) -> None:
     """
     Executes the bronze layer task, which creates parquet files with stock data
     retrieved from external APIs.
@@ -17,7 +17,7 @@ def run_bronze(**kwargs: Any) -> None:
         is raised to mark the task as failed in the DAG.
     """
     try:
-        parquet_create(DATE_STR, STOCKS_SYMBOLS_LIST, API_KEY_ALPHA, API_KEY_FINHUB)
+        parquet_create(context["ds"], STOCKS_SYMBOLS_LIST, API_KEY_ALPHA, API_KEY_FINHUB)
     except AirflowException as e:
         print(f"Failed in run_bronze: {e}")
         raise e  # Force the task to fail to cancel the DAG

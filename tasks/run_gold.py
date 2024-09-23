@@ -1,10 +1,10 @@
 from sqlalchemy.engine import Engine
 from utils.database import create_redshift_engine
 from gold.calculate_stock_attributes import calculate_stock_attributes
-from utils.config import DATE_STR
 
 
-def run_gold() -> None:
+
+def run_gold(**context) -> None:
     """
     Run the gold layer process, which calculates stock attributes
     and inserts the calculated data into the Redshift database.
@@ -25,7 +25,7 @@ def run_gold() -> None:
         conn: Engine = create_redshift_engine()
 
         # Calculate stock attributes and insert them into Redshift
-        calculate_stock_attributes(conn, DATE_STR)
+        calculate_stock_attributes(conn, context["ds"])
 
     except Exception as e:
         # Print the exception and re-raise it

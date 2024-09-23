@@ -1,5 +1,3 @@
-from datetime import datetime, timedelta
-import pytz
 import os
 from dotenv import load_dotenv
 from typing import List, Optional
@@ -8,18 +6,6 @@ from typing import List, Optional
 DIR_PATH: str = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 dotenv_path: str = os.path.join(DIR_PATH, '.env')
 load_dotenv(dotenv_path)
-
-# Define the timezone for Buenos Aires
-BUENOS_AIRES_TZ = pytz.timezone('America/Argentina/Buenos_Aires')
-
-# Get the current date and time in Buenos Aires timezone
-NOW_BA: datetime = datetime.now(BUENOS_AIRES_TZ)
-
-# Calculate the date for one days ago
-YESTERDAY_DATE: datetime = NOW_BA - timedelta(days=1)
-
-# Format the date as a string in 'YYYY-MM-DD' format
-DATE_STR: str = YESTERDAY_DATE.strftime('%Y-%m-%d')
 
 # API keys loaded from environment variables
 API_KEY_ALPHA: Optional[str] = os.getenv('API_KEY_ALPHA')

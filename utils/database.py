@@ -11,7 +11,7 @@ from utils.config import (
 dbname: str = DBNAME_REDSHIFT
 user: str = USER_REDSHIFT
 # Handle special characters in password
-password: str = urllib.parse.quote_plus(PASSWORD_REDSHIFT)
+password: str = urllib.parse.quote_plus(str(PASSWORD_REDSHIFT))
 host: str = HOST_REDSHIFT
 port: str = PORT_REDSHIFT
 

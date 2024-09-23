@@ -2,7 +2,6 @@ from sqlalchemy.engine import Engine
 from utils.database import create_redshift_engine
 from silver.create_tables import create_tables
 from silver.load_parquet import load_parquet_files
-from utils.config import DATE_STR
 from silver.table_insert_sql import (
     insert_stock_data_scd2,
     insert_date_data,
@@ -11,7 +10,7 @@ from silver.table_insert_sql import (
 import pandas as pd
 
 
-def run_silver() -> None:
+def run_silver(**context) -> None:
     """
     Run the silver layer process, which includes creating tables,
     loading Parquet files, and inserting data into Redshift tables.
@@ -35,7 +34,7 @@ def run_silver() -> None:
         daily_stock_prices_df: pd.DataFrame
         stock_df: pd.DataFrame
         date_df: pd.DataFrame
-        daily_stock_prices_df, stock_df, date_df = load_parquet_files(DATE_STR)
+        daily_stock_prices_df, stock_df, date_df = load_parquet_files(context["ds"])
 
         # Step 3: Insert data into Redshift tables
         insert_stock_data_scd2(conn, stock_df)
