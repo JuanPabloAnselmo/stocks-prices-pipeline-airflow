@@ -3,7 +3,6 @@ from utils.database import create_redshift_engine
 from gold.calculate_stock_attributes import calculate_stock_attributes
 
 
-
 def run_gold(**context) -> None:
     """
     Run the gold layer process, which calculates stock attributes
