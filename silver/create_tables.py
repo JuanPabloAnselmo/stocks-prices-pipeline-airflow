@@ -2,6 +2,7 @@ from sqlalchemy import text
 from sqlalchemy.engine import Engine
 from utils.config import REDSHIFT_SCHEMA
 
+
 def create_tables(engine: Engine) -> None:
     """
     Create tables in the Redshift database if they do not exist.
