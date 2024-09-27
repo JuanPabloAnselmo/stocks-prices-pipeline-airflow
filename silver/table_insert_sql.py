@@ -2,6 +2,7 @@ import pandas as pd
 from datetime import datetime
 from sqlalchemy import text
 from sqlalchemy.engine import Engine
+from utils.config import REDSHIFT_SCHEMA
 
 
 def insert_stock_data_scd2(engine: Engine, stock_df: pd.DataFrame) -> None:
@@ -23,8 +24,8 @@ def insert_stock_data_scd2(engine: Engine, stock_df: pd.DataFrame) -> None:
             # Check if there's an existing current record for the symbol
             result = connection.execute(
                 text(
-                    """
-                SELECT * FROM "2024_juan_pablo_anselmo_schema".stock_table
+                    f"""
+                SELECT * FROM "{REDSHIFT_SCHEMA}".stock_table
                 WHERE symbol = :symbol AND is_current = 1
             """
                 ),
@@ -45,8 +46,8 @@ def insert_stock_data_scd2(engine: Engine, stock_df: pd.DataFrame) -> None:
                     # Mark the existing record as not current and set the end date
                     connection.execute(
                         text(
-                            """
-                        UPDATE "2024_juan_pablo_anselmo_schema".stock_table
+                            f"""
+                        UPDATE "{REDSHIFT_SCHEMA}".stock_table
                         SET is_current = 0, end_date = :end_date
                         WHERE symbol = :symbol AND is_current = 1
                     """
@@ -61,8 +62,8 @@ def insert_stock_data_scd2(engine: Engine, stock_df: pd.DataFrame) -> None:
                     # Insert a new record with is_current = 1 and start_date = today
                     connection.execute(
                         text(
-                            """
-                        INSERT INTO "2024_juan_pablo_anselmo_schema".stock_table (
+                            f"""
+                        INSERT INTO "{REDSHIFT_SCHEMA}".stock_table (
                             symbol, name, industry, exchange, logo, weburl
                                 , start_date, end_date, is_current
                         ) VALUES (:symbol, :name, :industry, :exchange,
@@ -88,8 +89,8 @@ def insert_stock_data_scd2(engine: Engine, stock_df: pd.DataFrame) -> None:
                 # Insert a new record if no current record exists
                 connection.execute(
                     text(
-                        """
-                    INSERT INTO "2024_juan_pablo_anselmo_schema".stock_table (
+                        f"""
+                    INSERT INTO "{REDSHIFT_SCHEMA}".stock_table (
                         symbol, name, industry, exchange
                             , logo, weburl, start_date, end_date, is_current
                     ) VALUES (:symbol, :name, :industry, :exchange,
@@ -135,8 +136,8 @@ def insert_date_data(engine: Engine, date_df: pd.DataFrame) -> None:
     with engine.connect() as connection:
         result = connection.execute(
             text(
-                """
-            SELECT MAX(date) FROM "2024_juan_pablo_anselmo_schema".date_table
+                f"""
+            SELECT MAX(date) FROM "{REDSHIFT_SCHEMA}".date_table
         """
             )
         )
@@ -165,7 +166,7 @@ def insert_date_data(engine: Engine, date_df: pd.DataFrame) -> None:
             new_dates_df.to_sql(
                 "date_table",
                 con=connection,
-                schema="2024_juan_pablo_anselmo_schema",
+                schema=f"{REDSHIFT_SCHEMA}",
                 if_exists="append",
                 index=False,
             )
@@ -194,9 +195,9 @@ def insert_stock_prices_data(
         # Get the latest date from the daily_stock_prices_table
         result = connection.execute(
             text(
-                """
+                f"""
             SELECT MAX(date)
-            FROM "2024_juan_pablo_anselmo_schema".daily_stock_prices_table
+            FROM "{REDSHIFT_SCHEMA}".daily_stock_prices_table
         """
             )
         )
@@ -235,7 +236,7 @@ def insert_stock_prices_data(
             new_prices_df.to_sql(
                 "daily_stock_prices_table",
                 con=connection,
-                schema="2024_juan_pablo_anselmo_schema",
+                schema=f"{REDSHIFT_SCHEMA}",
                 if_exists="append",
                 index=False,
             )

@@ -1,6 +1,6 @@
 from sqlalchemy import text
 from sqlalchemy.engine import Engine
-
+from utils.config import REDSHIFT_SCHEMA
 
 def create_tables(engine: Engine) -> None:
     """
@@ -23,11 +23,11 @@ def create_tables(engine: Engine) -> None:
 
         with engine.connect() as connection:
             query = text(
-                """
+                f"""
                 SELECT EXISTS (
                     SELECT 1
                     FROM information_schema.tables
-                    WHERE table_schema = '2024_juan_pablo_anselmo_schema'
+                    WHERE table_schema = '{REDSHIFT_SCHEMA}'
                     AND table_name = :table_name
                 )
                 """
@@ -40,8 +40,8 @@ def create_tables(engine: Engine) -> None:
         if not table_exists("stock_table"):
             connection.execute(
                 text(
-                    """
-                    CREATE TABLE "2024_juan_pablo_anselmo_schema".stock_table (
+                    f"""
+                    CREATE TABLE "{REDSHIFT_SCHEMA}".stock_table (
                         id_record BIGINT IDENTITY(1,1) PRIMARY KEY,
                         symbol VARCHAR(255) UNIQUE,
                         name VARCHAR(255),
@@ -64,8 +64,8 @@ def create_tables(engine: Engine) -> None:
         if not table_exists("date_table"):
             connection.execute(
                 text(
-                    """
-                    CREATE TABLE "2024_juan_pablo_anselmo_schema".date_table (
+                    f"""
+                    CREATE TABLE "{REDSHIFT_SCHEMA}".date_table (
                         date DATE PRIMARY KEY,
                         day_of_week TEXT,
                         day_of_week_short TEXT,
@@ -90,9 +90,9 @@ def create_tables(engine: Engine) -> None:
         if not table_exists("daily_stock_prices_table"):
             connection.execute(
                 text(
-                    """
+                    f"""
                     CREATE TABLE
-                        "2024_juan_pablo_anselmo_schema".daily_stock_prices_table (
+                        "{REDSHIFT_SCHEMA}".daily_stock_prices_table (
                         id_transaction BIGINT IDENTITY(1,1) PRIMARY KEY,
                         date DATE,
                         symbol TEXT,
@@ -103,10 +103,10 @@ def create_tables(engine: Engine) -> None:
                         volume INTEGER,
                         FOREIGN KEY (date)
                             REFERENCES
-                            "2024_juan_pablo_anselmo_schema".date_table(date),
+                            "{REDSHIFT_SCHEMA}".date_table(date),
                         FOREIGN KEY (symbol)
                             REFERENCES
-                            "2024_juan_pablo_anselmo_schema".stock_table(symbol)
+                            "{REDSHIFT_SCHEMA}".stock_table(symbol)
                     );
                     """
                 )
@@ -119,9 +119,9 @@ def create_tables(engine: Engine) -> None:
         if not table_exists("atributes_stock_prices_table"):
             connection.execute(
                 text(
-                    """
+                    f"""
                     CREATE TABLE
-                    "2024_juan_pablo_anselmo_schema".atributes_stock_prices_table (
+                    "{REDSHIFT_SCHEMA}".atributes_stock_prices_table (
                         id BIGINT IDENTITY(1,1) PRIMARY KEY,
                         id_transaction BIGINT,
                         date DATE,
@@ -136,10 +136,10 @@ def create_tables(engine: Engine) -> None:
                         price_volatility FLOAT,
                         FOREIGN KEY (symbol)
                             REFERENCES
-                            "2024_juan_pablo_anselmo_schema".stock_table(symbol),
+                            "{REDSHIFT_SCHEMA}".stock_table(symbol),
                         FOREIGN KEY (id_transaction)
                             REFERENCES
-                            "2024_juan_pablo_anselmo_schema".daily_stock_prices_table
+                            "{REDSHIFT_SCHEMA}".daily_stock_prices_table
                                 (id_transaction)
                     );
                     """

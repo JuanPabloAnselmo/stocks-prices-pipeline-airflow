@@ -1,6 +1,7 @@
 import pandas as pd
 from sqlalchemy import text
 from sqlalchemy.engine import Engine
+from utils.config import REDSHIFT_SCHEMA
 
 
 def calculate_stock_attributes(engine: Engine, date: str) -> None:
@@ -19,7 +20,7 @@ def calculate_stock_attributes(engine: Engine, date: str) -> None:
 
     with engine.begin() as connection:
         # Read data from daily_stock_prices_table for the given date
-        query = text("""
+        query = text(f"""
             SELECT
                 id_transaction,
                 date,
@@ -29,7 +30,7 @@ def calculate_stock_attributes(engine: Engine, date: str) -> None:
                 low_price,
                 close_price,
                 volume
-            FROM "2024_juan_pablo_anselmo_schema".daily_stock_prices_table
+            FROM "{REDSHIFT_SCHEMA}".daily_stock_prices_table
             WHERE date = :date
         """)
         df = pd.read_sql_query(query, connection, params={'date': date})
@@ -56,8 +57,8 @@ def calculate_stock_attributes(engine: Engine, date: str) -> None:
         ])
 
         # Delete existing rows for the same id_transaction before inserting
-        delete_query = text("""
-            DELETE FROM "2024_juan_pablo_anselmo_schema".atributes_stock_prices_table
+        delete_query = text(f"""
+            DELETE FROM "{REDSHIFT_SCHEMA}".atributes_stock_prices_table
             WHERE id_transaction IN :id_transactions
         """)
         connection.execute(delete_query, {'id_transactions': tuple(df['id_transaction'].tolist())})  # noqa: E501
@@ -66,7 +67,7 @@ def calculate_stock_attributes(engine: Engine, date: str) -> None:
         df.to_sql(
             'atributes_stock_prices_table',
             con=connection,
-            schema='2024_juan_pablo_anselmo_schema',
+            schema=f'{REDSHIFT_SCHEMA}',
             if_exists='append',
             index=False
         )

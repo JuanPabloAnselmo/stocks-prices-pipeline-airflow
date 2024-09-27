@@ -22,4 +22,8 @@ USER_REDSHIFT: Optional[str] = os.getenv('USER_REDSHIFT')
 PASSWORD_REDSHIFT: Optional[str] = os.getenv('PASSWORD_REDSHIFT')
 HOST_REDSHIFT: Optional[str] = os.getenv('HOST_REDSHIFT')
 PORT_REDSHIFT: Optional[str] = os.getenv('PORT_REDSHIFT')
+REDSHIFT_SCHEMA = '2024_juan_pablo_anselmo_schema'
+
+
+
 
