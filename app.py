@@ -5,6 +5,7 @@ from sqlalchemy.engine import Engine
 from utils.database import create_redshift_engine
 import matplotlib.dates as mdates
 from typing import Optional
+from utils.config import REDSHIFT_SCHEMA
 
 
 def plot_stock_data(engine: Engine) -> None:
@@ -18,7 +19,7 @@ def plot_stock_data(engine: Engine) -> None:
     """
     # Query to retrieve stock data
     with engine.begin() as connection:
-        query = """
+        query = f"""
             SELECT
                 date,
                 symbol,
@@ -27,7 +28,7 @@ def plot_stock_data(engine: Engine) -> None:
                 low_price,
                 close_price,
                 volume
-            FROM "2024_juan_pablo_anselmo_schema".daily_stock_prices_table
+            FROM "{REDSHIFT_SCHEMA}".daily_stock_prices_table
         """
         df: pd.DataFrame = pd.read_sql_query(query, connection)
 
