@@ -1,6 +1,12 @@
+import os
+import sys
 import unittest
 from unittest.mock import patch, MagicMock
 import pandas as pd
+
+# Add the parent directory to the path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from bronze.api_data_downloader import create_daily_stock_prices_table  # Ajusta el nombre del módulo donde está la función
 
 
