@@ -16,20 +16,12 @@ def run_gold(**context) -> None:
     Args:
         None
 
-    Raises:
-        Exception: If there is an issue with calculating stock attributes
-        or the database connection.
     """
-    try:
-        conn: Engine = create_redshift_engine()
 
-        # Calculate stock attributes and insert them into Redshift
-        calculate_stock_attributes(conn, context["ds"])
+    conn: Engine = create_redshift_engine()
 
-    except Exception as e:
-        # Print the exception and re-raise it
-        print(f"An error occurred: {e}")
-        raise e
+    # Calculate stock attributes and insert them into Redshift
+    calculate_stock_attributes(conn, context["ds"])
 
 
 if __name__ == "__main__":

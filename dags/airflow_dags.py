@@ -29,7 +29,7 @@ with DAG(
     description="DAG to process stock price data and load it into Redshift",
     schedule_interval="0 0 * * 2-6",
     start_date=days_ago(1),
-    catchup=False,
+    catchup=True,
 ) as dag:
 
     # Task to extract data from the API and generate Parquet files (Bronze layer)

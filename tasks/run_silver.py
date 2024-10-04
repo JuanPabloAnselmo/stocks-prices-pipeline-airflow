@@ -20,31 +20,23 @@ def run_silver(**context) -> None:
         2. Load data from Parquet files.
         3. Insert stock, date, and daily stock prices data into Redshift.
 
-    Raises:
-        Exception: If there are issues with any of the steps,
-        it will propagate the exception.
     """
-    try:
-        conn: Engine = create_redshift_engine()
 
-        # Step 1: Create tables in the Redshift database if they don't exist
-        create_tables(conn)
+    conn: Engine = create_redshift_engine()
 
-        # Step 2: Load Parquet files into DataFrames
-        daily_stock_prices_df: pd.DataFrame
-        stock_df: pd.DataFrame
-        date_df: pd.DataFrame
-        daily_stock_prices_df, stock_df, date_df = load_parquet_files(context["ds"])
+    # Step 1: Create tables in the Redshift database if they don't exist
+    create_tables(conn)
 
-        # Step 3: Insert data into Redshift tables
-        insert_stock_data_scd2(conn, stock_df)
-        insert_date_data(conn, date_df)
-        insert_stock_prices_data(conn, daily_stock_prices_df)
+    # Step 2: Load Parquet files into DataFrames
+    daily_stock_prices_df: pd.DataFrame
+    stock_df: pd.DataFrame
+    date_df: pd.DataFrame
+    daily_stock_prices_df, stock_df, date_df = load_parquet_files(context["ds"])
 
-    except Exception as e:
-        # Print the exception and re-raise it to ensure the error is propagated
-        print(f"An error occurred during the silver layer process: {e}")
-        raise e
+    # Step 3: Insert data into Redshift tables
+    insert_stock_data_scd2(conn, stock_df)
+    insert_date_data(conn, date_df)
+    insert_stock_prices_data(conn, daily_stock_prices_df)
 
 
 if __name__ == "__main__":

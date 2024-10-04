@@ -19,7 +19,6 @@ def run_bronze(**context: Any) -> None:
     try:
         parquet_create(context["ds"], STOCKS_SYMBOLS_LIST, API_KEY_ALPHA, API_KEY_FINHUB)  # noqa: E501
     except AirflowException as e:
-        print(f"Failed in run_bronze: {e}")
         raise e  # Force the task to fail to cancel the DAG
 
 

@@ -25,17 +25,11 @@ def create_redshift_engine() -> Engine:
 
     Returns:
         Engine: A SQLAlchemy Engine object connected to the Redshift database.
-
-    Raises:
-        Exception: If there is an issue with creating the SQLAlchemy engine.
     """
-    try:
-        # Create a SQLAlchemy engine for Redshift connection
-        engine: Engine = create_engine(
-            f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{dbname}'
-        )
-        return engine
-    except Exception as e:
-        # Print the exception and re-raise it to ensure the error is propagated
-        print(f"An error occurred while creating the Redshift engine: {e}")
-        raise e
+
+    # Create a SQLAlchemy engine for Redshift connection
+    engine: Engine = create_engine(
+        f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{dbname}'
+    )
+    return engine
+

@@ -24,42 +24,32 @@ def parquet_create(
     Raises:
         AirflowException: If no valid data is retrieved for the given symbols.
     """
-    try:
-        # Create DataFrame for daily stock prices
-        daily_stock_prices_table: pd.DataFrame = pd.concat(
-            [
-                create_daily_stock_prices_table(symbol, date, api_key_alpha)
-                for symbol in stock_symbols
-            ],
-            ignore_index=True,
+    # Create DataFrame for daily stock prices
+    daily_stock_prices_table: pd.DataFrame = pd.concat(
+        [
+            create_daily_stock_prices_table(symbol, date, api_key_alpha)
+            for symbol in stock_symbols
+        ],
+        ignore_index=True,
+    )
+
+    # Check if the DataFrame is empty
+    if daily_stock_prices_table.empty:
+        raise ValueError(
+            "Failed to retrieve daily stock prices for the provided symbols."
         )
 
-        # Check if the DataFrame is empty
-        if daily_stock_prices_table.empty:
-            raise ValueError(
-                "Failed to retrieve daily stock prices for the provided symbols."
-            )
+    # Create DataFrame for stock profiles
+    stock_table: pd.DataFrame = pd.concat(
+        [create_stock_table(symbol, api_key_finnhub) for symbol in stock_symbols],
+        ignore_index=True,
+    )
 
-    except Exception as e:
-        print(f"Error retrieving daily stock prices: {e}")
-        daily_stock_prices_table = pd.DataFrame()  # Empty DataFrame in case of error
-
-    try:
-        # Create DataFrame for stock profiles
-        stock_table: pd.DataFrame = pd.concat(
-            [create_stock_table(symbol, api_key_finnhub) for symbol in stock_symbols],
-            ignore_index=True,
+    # Check if the DataFrame is empty
+    if stock_table.empty:
+        raise ValueError(
+            "Failed to retrieve stock profile information for the provided symbols."
         )
-
-        # Check if the DataFrame is empty
-        if stock_table.empty:
-            raise ValueError(
-                "Failed to retrieve stock profile information for the provided symbols."
-            )
-
-    except Exception as e:
-        print(f"Error retrieving stock profile information: {e}")
-        stock_table = pd.DataFrame()  # Empty DataFrame in case of error
 
     # Validate that daily_stock_prices_table DataFrame have data
     # before saving to Parquet files
@@ -69,24 +59,19 @@ def parquet_create(
         )
 
     # Save daily stock prices DataFrame to a Parquet file
-    try:
-        daily_stock_prices_file: str = os.path.join(
-            DIR_PATH,
-            "bronze",
-            "data",
-            f"daily_stock_prices_table_{date}_bronze.parquet",
-        )
-        daily_stock_prices_table.to_parquet(daily_stock_prices_file, index=False)
-        print(f"File '{daily_stock_prices_file}' created successfully.")
-    except Exception as e:
-        print(f"Error saving '{daily_stock_prices_file}': {e}")
+
+    daily_stock_prices_file: str = os.path.join(
+        DIR_PATH,
+        "bronze",
+        "data",
+        f"daily_stock_prices_table_{date}_bronze.parquet",
+    )
+    daily_stock_prices_table.to_parquet(daily_stock_prices_file, index=False)
+    print(f"File '{daily_stock_prices_file}' created successfully.")
 
     # Save stock profile DataFrame to a Parquet file
-    try:
-        stock_table_file: str = os.path.join(
-            DIR_PATH, "bronze", "data", f"stock_table_{date}_bronze.parquet"
-        )
-        stock_table.to_parquet(stock_table_file, index=False)
-        print(f"File '{stock_table_file}' created successfully.")
-    except Exception as e:
-        print(f"Error saving '{stock_table_file}': {e}")
+    stock_table_file: str = os.path.join(
+        DIR_PATH, "bronze", "data", f"stock_table_{date}_bronze.parquet"
+    )
+    stock_table.to_parquet(stock_table_file, index=False)
+    print(f"File '{stock_table_file}' created successfully.")
