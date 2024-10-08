@@ -156,7 +156,7 @@ La carpeta `tests` contiene cuatro pruebas:
 2. `test_dependencies.py`: Comprueba si hay problemas de dependencias.
 3. `test_linting.py`: Asegura que el estilo del código cumple con PEP8.
 
-> **Nota**: Las pruebas de calidad de código (3 y 4) se ejecutan automáticamente en cada push o pull request mediante GitHub Actions.
+> **Nota**: Las pruebas de calidad de código (2 y 3) se ejecutan automáticamente en cada push o pull request mediante GitHub Actions.
 
 ## ✨ Futuras Mejoras
 
