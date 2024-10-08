@@ -151,11 +151,10 @@ La carpeta `tests` contiene cuatro pruebas:
 
 #### Pruebas de funcionalidad
 1. `test_create_daily_stock_prices_table.py`: Evalúa la función que obtiene información de la API.
-2. `test_daily_stock_price_dtypes.py`: Verifica si los tipos de datos del parquet en silver corresponden a los requeridos por la tabla `daily_stock_prices_table` en la base de datos.
 
 #### Pruebas de calidad de código
-3. `test_dependencies.py`: Comprueba si hay problemas de dependencias.
-4. `test_linting.py`: Asegura que el estilo del código cumple con PEP8.
+2. `test_dependencies.py`: Comprueba si hay problemas de dependencias.
+3. `test_linting.py`: Asegura que el estilo del código cumple con PEP8.
 
 > **Nota**: Las pruebas de calidad de código (3 y 4) se ejecutan automáticamente en cada push o pull request mediante GitHub Actions.
 
